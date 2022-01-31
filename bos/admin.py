@@ -16,4 +16,4 @@ admin.site.register(Area)
 
 admin.site.site_header = "JDE application Admin"
 admin.site.site_title = "JDE App"
-admin.site.index_title = "Welcome the to JDE App Portal"
+admin.site.index_title = "Welcome to the JDE App Portal"
