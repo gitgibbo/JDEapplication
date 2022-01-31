@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-j%r=k%9u2&h97%u2q&%$14gn0og0m$n(t1!zlxs9c4p+!+p46v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = ['https://jdeapp.azurewebsites.net']
 
 
 # Application definition
@@ -36,6 +37,7 @@ INSTALLED_APPS = [
     'users',
 
     # 3rd party apps
+    "whitenoise.runserver_nostatic",
     'bootstrap4',
     'import_export',
 
@@ -50,6 +52,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -84,11 +87,17 @@ WSGI_APPLICATION = 'jde_application.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ.get('POSTGRES_DBNAME', ''),
+        'USER': os.environ.get('POSTGRES_DBUSER', ''),
+        'PASSWORD': os.environ.get('POSTGRES_DBPASS', ''),
+        'HOST': os.environ.get('POSTGRES_DBHOST', ''),
+        'PORT': os.environ.get('POSTGRES_PORT', ''),
+        'OPTIONS': {
+            'sslmode': 'require',
+        }
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -124,7 +133,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = os.environ.get("DJANGO_STATIC_URL", "/static/")
+STATIC_ROOT = STATIC_ROOT = os.environ.get("DJANGO_STATIC_ROOT", "./static/")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
