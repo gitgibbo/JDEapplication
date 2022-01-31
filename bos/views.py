@@ -8,13 +8,13 @@ def index(request):
     return render(request, 'bos/index.html')
 
 @login_required
-def bos(request):
+def boslist(request):
     """ Shows BOS's"""
     bos = BOS.objects.order_by('-date_added')
     context = {'bos':bos}
-    return render(request, 'bos/bos.html', context)
+    return render(request, 'bos/boslist.html', context)
 
-def showbos(request, bos_id):
+def bos(request, bos_id):
     """Shows the details for the specific BOS"""
     bos = BOS.objects.get(id=bos_id)
     area = BOS.objects.get(id=bos_id).Area
@@ -23,10 +23,10 @@ def showbos(request, bos_id):
     date = BOS.objects.get(id=bos_id).date_added
     owner = BOS.objects.get(id=bos_id).owner
     context = {'bos_id':bos, 'area':area, 'topic':topic, 'comments':comments, 'date':date, 'owner':owner}
-    return render(request, 'bos/showbos.html', context)
+    return render(request, 'bos/bos.html', context)
 
 @login_required
-def new_bos(request):
+def newbos(request):
     """Submit a BOS"""
     if request.method != 'POST':
         # no data submitted; create a blank form
@@ -38,8 +38,8 @@ def new_bos(request):
             BOS = form.save(commit=False)
             BOS.owner = request.user
             BOS.save()    
-            return redirect('bos:bos')
+            return redirect('bos:boslist')
     
     # Display a blank or invalid form
     context = {'form':form}
-    return render(request, 'bos/new_bos.html', context)
+    return render(request, 'bos/newbos.html', context)

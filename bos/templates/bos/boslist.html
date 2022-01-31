@@ -1,0 +1,61 @@
+<!--<head>
+	<style type="text/css">
+		.sidenav {
+			height:100%;
+			width:160px;
+			position: fixed;
+			z-index:1;
+			top:58;
+			left:0;
+			background-color:rgb(235, 235, 235);
+			overflow-x: :hidden;
+			padding-top:20px;
+		}
+    .sidenav h1 {
+			padding:6px 8px 6px 16px;
+			text-decoration: none;
+			font-size:25px;
+			color: #000000;
+			display:block;
+		}
+		.sidenav a {
+			padding:6px 8px 6px 16px;
+			text-decoration: none;
+			font-size:18px;
+			color: #818181;
+			display:block;
+		}
+ 
+		.sidenav a:hover{
+			color:#f1f1f1;
+		}	
+ 
+		.main{
+			margin-left:160px;
+			padding: 0px 10px;
+		}
+ 
+	</style>
+</head>
+<body>
+  <div class="sidenav">
+    <h1>Filters</h1>
+    <a>Topic list here</a>
+  </div>
+</body> -->
+{% extends "bos/base.html" %}
+{% block page_header %}
+  <h3>Submitted BOS's</h3>
+{% endblock page_header %}
+{% block content %}
+<ul>
+  {% for bos in bos %}
+    <div class="shadow p-3 mb-5 bg-white rounded">
+      <h4 class="card-header"><a href="{% url 'bos:bos' bos.id %}">{{ bos }}</a> <b>{{bos.Topic}}</b> On {{bos.date_added}} in {{bos.Area}}</h4>
+      <p>{{ bos.Comments }}</p>
+    </div>
+    {% empty %}
+       <li>No BOS's have been submitted.</li>
+    {% endfor %}
+</ul>
+{% endblock content %}

@@ -22,11 +22,11 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'bos:bos'%}">
+          <a class="nav-link" href="{% url 'bos:boslist'%}">
           Submitted BOS's</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'bos:new_bos'%}">
+          <a class="nav-link" href="{% url 'bos:newbos'%}">
           New BOS</a>
         {% if user.is_staff %}
           <li class="nav-item">

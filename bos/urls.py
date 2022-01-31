@@ -7,10 +7,10 @@ urlpatterns = [
     # Home Page
     path('', views.index, name='index'),
     #Page that shows BOS's
-    path('bos/', views.bos, name='bos'),
+    path('boslist/', views.boslist, name='boslist'),
     # Detail page for a single BOS
-    path('showbos/<int:bos_id>/',views.showbos, name='show bos'),
+    path('bos/<int:bos_id>/',views.bos, name='bos'),
     # BOS entry
-    path('new_bos/', views.new_bos, name='new_bos'),
+    path('newbos/', views.newbos, name='newbos'),
 
 ]
