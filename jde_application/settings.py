@@ -86,7 +86,8 @@ WSGI_APPLICATION = 'jde_application.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+    'default':
+        {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': os.environ.get('POSTGRES_DBNAME', ''),
         'USER': os.environ.get('POSTGRES_DBUSER', ''),
@@ -94,10 +95,18 @@ DATABASES = {
         'HOST': os.environ.get('POSTGRES_DBHOST', ''),
         'PORT': os.environ.get('POSTGRES_PORT', ''),
         'OPTIONS': {
-            'sslmode': 'require',
+            'sslmode': 'require' }   
         }
-    }
 }
+
+"""
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}"""
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
