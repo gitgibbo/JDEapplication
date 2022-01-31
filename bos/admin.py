@@ -7,7 +7,7 @@ admin.site.register(Permission)
 
 @admin.register(BOS)
 class BOSadmin(ImportExportModelAdmin, admin.ModelAdmin):
-    list_display = ['__str__', 'owner', 'Area']
+    list_display = ['__str__', 'owner', 'Area', 'date_added']
 
 admin.site.register(Topic)
 admin.site.register(Shift)
